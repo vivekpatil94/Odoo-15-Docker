@@ -1,0 +1,29 @@
+<odoo>
+    <record id="paperformat_logistic_custom" model="report.paperformat">
+        <field name="name">Logistic Custom Size</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">227</field>
+        <field name="page_width">114</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- ecan_report -->
+    <record id="action_logistic_report" model="ir.actions.report">
+        <field name="name">物流列印單據</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dotmatrix.logistic_stock_picking_report</field>
+        <field name="report_file">dotmatrix.logistic_stock_picking_report</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="dotmatrix.paperformat_logistic_custom" />
+    </record>
+</odoo>

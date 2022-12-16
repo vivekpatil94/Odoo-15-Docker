@@ -1,0 +1,66 @@
+<odoo>
+    
+    <!-- Kanban -->
+    <record id="view_kanban_crop_storage" model="ir.ui.view">            
+      <field name="name">Storage Kanban</field>            
+      <field name="model">agriculture.storage</field>            
+      <field name="arch" type="xml">
+      <kanban>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_global_click">
+              <!-- <div class="o_kanban_image">
+              </div> -->
+              <div class="oe_kanban_details">     
+					                                  
+                <strong class="o_kanban_record_title">                                    
+                  <b>StorageId：</b><field name="StorageId"/>
+                </strong>                
+                
+                <!-- <div class="oe_kanban_record_subtitle">
+                  <b>所有米種：</b><field name="CropVarieties"/>
+                </div>
+                <div class="oe_kanban_record_subtitle">
+                  <b>所有米重：</b><field name="CropWeights"/>
+                </div> -->
+
+                <div class="oe_kanban_record_subtitle">
+                  <b>Materials：</b><field name="myList"/>
+                </div>
+
+                <!-- <t t-foreach="Crops.raw_value" t-as="m">
+                   <p><t t-esc="m"/></p>
+                </t> -->
+                <!-- <t t-foreach="request.env['agriculture.storage'].search([])"  t-as="c">
+                  <p><t t-esc="c.name"/></p>
+                </t> -->
+
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+      </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_form_crop_storage" model="ir.ui.view">
+      <field name="name">Storage Form</field>
+      <field name="model">agriculture.storage</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group name="group_left">
+              <field name="StorageId" />
+              <field name="myList" readonly="1"></field>
+              <field name="CropVarieties" readonly="1"></field>
+              <field name="CropWeights" readonly="1"></field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+</odoo>
+
+                 

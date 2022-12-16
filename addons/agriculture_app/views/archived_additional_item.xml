@@ -1,0 +1,90 @@
+<odoo>
+  <data>
+
+    <!-- form view definition -->
+    <record id="view_form_archived_additional_item" model="ir.ui.view">
+      <field name="name">Archived Additional Item Form</field>
+      <field name="model">agriculture.archived_additional_item</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <!-- 日期 -->
+            <label for="datetime" string="Datetime" />
+            <field name="datetime" widget="date" options="{'format': 'YYYY-MM-DD'}" />
+            <br />
+            <!-- 項目 -->
+            <label for="item_name" string="Item Name" />
+            <field name="item_name" />
+            <!-- 應付/應收 -->
+            <label for="item_kind" string="Item Kind" />
+            <field name="item_kind" />
+            <!-- 數量 -->
+            <label for="amount" string="Amount" />
+            <field name="amount" />
+            <!-- 單位價格 -->
+            <label for="unit_price" string="Unit Price" />
+            <field name="unit_price" />
+            <!-- 總價 -->
+            <label for="total_price" string="Total Price" />
+            <field name="total_price" />
+
+            <div>
+              <!-- 烘乾補助 -->
+              <label for="drying_allowance" string="Drying Allowance" attrs="{'invisible': [ ('item_kind','!=','expenditure' ) ]}" />
+              <field name="drying_allowance" attrs="{'invisible': [ ('item_kind','!=','expenditure' ) ]}" />
+
+              <!-- 搬運補助 -->
+              <label for="transport_allowance" string="Transport Allowance" attrs="{'invisible': [ ('item_kind','!=','expenditure' ) ]}" />
+              <field name="transport_allowance" attrs="{'invisible': [ ('item_kind','!=','expenditure' ) ]}" />
+            </div>
+
+
+            <div>
+              <!-- 應收利息 -->
+              <label for="interest" string="Interest" attrs="{'invisible': [ ('item_kind','!=','income' ) ]}" />
+              <field name="interest" attrs="{'invisible': [ ('item_kind','!=','income' ) ]}" />
+              <!-- 備註說明 -->
+              <label for="comment" string="Comment" attrs="{'invisible': [ ('item_kind','!=','income' ) ]}" />
+              <field name="comment" attrs="{'invisible': [ ('item_kind','!=','income' ) ]}" />
+            </div>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- list view definition -->
+    <record id="view_tree_archived_additional_item" model="ir.ui.view">
+      <field name="name">Archived list</field>
+      <field name="model">agriculture.archived_additional_item</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- 日期 -->
+          <field name="datetime" string="Datetime" widget="date" options="{'format': 'YYYY-MM-DD'}" />
+          <!-- 項目 -->
+          <field name="item_name" string="Item Name" />
+          <!-- 應付/應收 -->
+          <field name="item_kind" string="Item Kind" />
+          <!-- 數量 -->
+          <field name="amount" string="Amount" />
+          <!-- 單位價格 -->
+          <field name="unit_price" string="Unit Price" />
+          <!-- 總價 -->
+          <field name="total_price" string="Total Price" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- search view definition -->
+    <record id="view_search_archived_additional_item" model="ir.ui.view">
+      <field name="name">Archived Filters</field>
+      <field name="model">agriculture.archived_additional_item</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="item_name" />
+        </search>
+      </field>
+    </record>
+
+  </data>
+</odoo>

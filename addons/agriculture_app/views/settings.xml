@@ -1,0 +1,99 @@
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.agriculture</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Agriculture" data-key="agriculture_configuration" string="Agriculture Settings">
+                    <h2>General Price Bonus Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <group string="Base Price">
+                                <field name="BasePrice" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="is Contracted Price Bonus">
+                                <field name="ContractedMemberPrice" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Spacial Crop Price Bonus">
+                                <field name="KoshihikariRice" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                <field name="GlutinousRicePrice_BR" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                <field name="GlutinousRicePrice" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Organic Crop Price Bonus">
+                                <field name="OrganicRice" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                <field name="VolumeWeightIsOverAndEqualTo" />
+                                <field name="PrimeYieldIsOverAndEqualTo" />
+                                <field name="OrganicRiceExtra" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Organic Transition or Isolated Area Price Bonus">
+                                <field name="OrganicTransOrIso" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+
+                            <group string="First Stage Condition">
+                                <field name="fs_VolumeWeightIsOver" />
+                                <field name="fs_TasteRatingIsOver" />
+                                <field name="fs_BrownIntactRatioIsOver" />
+                                <field name="fs_bonus" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Second Stage Condition">
+                                <field name="ss_VolumeWeightIsOver" />
+                                <field name="ss_TasteRatingIsOver" />
+                                <field name="ss_BrownIntactRatioIsOver" />
+                                <field name="ss_bonus" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Third Stage Condition">
+                                <field name="ts_VolumeWeightIsOver" />
+                                <field name="ts_TasteRatingIsOver" />
+                                <field name="ts_BrownIntactRatioIsOver" />
+                                <field name="ts_bonus" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Fourth Stage Condition">
+                                <field name="ffs_VolumeWeightIsOver" />
+                                <field name="ffs_TasteRatingIsOver" />
+                                <field name="ffs_BrownIntactRatioIsOver" />
+                            </group>
+                            <group string="TGAP Price Bonus">
+                                <field name="tgap_bonus" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            </group>
+                            <group string="Final PrimeYield Price Bonus">
+                                <field name="final_PrimeYieldIsOverAndEqualTo" />
+                            </group>
+                            <group string="Multiplication Price Bonus">
+                                <field name="multiplication" />
+                            </group>
+                            <group string="MaxPurchaseQTYPerHectare">
+                                <field name="maxPurchaseQTYPerHectare" />
+                            </group>
+                            <group string="BlackCatLogisticConfig">
+                                <field name="blackCat_customer_id" string="BlackCat Customer Id" />
+                                <field name="blackCat_api_url" string="BlackCat API Base URL" />
+                                <field name="blackCat_api_token" string="BlackCat API Token" />
+                            </group>
+                            <group string="ECANLogisticConfig">
+                                <field name="ecan_customer_id" string="ECAN Customer Id" />
+                            </group>
+                            <group string="KTJLogisticConfig">
+                                <field name="ktj_customer_id" string="KTJ Customer Id" />
+                            </group>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_menu_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form" />
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'agriculture'}</field>
+    </record>
+
+
+</odoo>

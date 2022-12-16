@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="logistic_stock_picking_report">
+        <t t-foreach="docs" t-as="doc">
+
+            <t t-set="doc_type">
+                <span></span>
+            </t>
+            <t t-if="doc.Shipping_method=='宅配通'">
+                <t t-call="web.basic_layout">
+                    <div style="font-size: 12pt;">
+                        <table class="table table-bordered" style="table-layout: fixed;border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <span t-field="doc.partner_id.zip"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.partner_id.state_id"/>
+                                        <br/>
+                                        <span t-field="doc.partner_id.city"/>
+                                        <span t-field="doc.partner_id.street"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.partner_id.street2"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.partner_id.name"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.partner_id.phone"/>
+                                        <span t-field="doc.partner_id.mobile"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.sender_zip"/>
+                                        <span t-field="doc.sender_address"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.sender_name"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.sender_phone"/>
+                                        <span t-field="doc.sender_mobile"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span t-field="doc.ecan_customerId"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+            <t t-if="doc.Shipping_method=='大榮貨運'">
+                <t t-call="web.basic_layout">
+                    <div style="font-size: 12pt;">
+                        <table class="table table-bordered" style="table-layout: fixed;border-collapse:collapse;">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.ktj_customerId"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.partner_id.mobile"/>
+                                    <span t-field="doc.partner_id.phone"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-field="doc.sender_phone"/>
+                                    <span t-field="doc.sender_mobile"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.partner_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-field="doc.sender_name"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.partner_id.zip"/>
+                                    <span t-field="doc.partner_id.state_id"/>
+                                    <span t-field="doc.partner_id.city"/>
+                                    <span t-field="doc.partner_id.street"/>
+                                    <br/>
+                                    <span t-field="doc.partner_id.street2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-field="doc.sender_zip"/>
+                                    <span t-field="doc.sender_address"/>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

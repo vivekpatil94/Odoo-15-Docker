@@ -1,0 +1,19 @@
+<odoo noupdate="1">
+  <record id="stage_draft" model="crop.stage">
+    <field name="name">Draft</field>
+    <field name="sequence">10</field>
+    <field name="state">draft</field>
+  </record>
+
+  <record id="stage_done" model="crop.stage">
+    <field name="name">Done</field>
+    <field name="sequence">90</field>
+    <field name="state">done</field>
+  </record>
+  
+  <record id="stage_archived" model="crop.stage">
+    <field name="name">Archived</field>
+    <field name="sequence">120</field>
+    <field name="state">archived</field>
+  </record>
+</odoo>

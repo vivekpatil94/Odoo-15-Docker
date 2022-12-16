@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_agriculture_crop,access_agriculture.crop,model_agriculture_crop,base.group_user,1,1,1,1
+access_agriculture_member,access.agriculture.member,model_agriculture_member,base.group_user,1,1,1,1
+access_argiculture_archived,access.argiculture.archived,model_agriculture_archived,base.group_user,1,1,1,1
+access_agriculture_archived_additional_item,access.agriculture.archived.additional.item,model_agriculture_archived_additional_item,base.group_user,1,1,1,1
+access_agriculture_crop_variety,access.access_agriculture_crop_variety,model_agriculture_cropvariety,base.group_user,1,1,1,1
+acesss_agriculture_crop_stage,access.access_crop_stage,model_crop_stage,base.group_user,1,1,1,1
+access_agriculture_blackcat_obt,access.access_agriculture.blackcat_obt,model_agriculture_blackcat_obt,base.group_user,1,1,1,1

@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+    <!-- Agriculture User Group -->
+    <!-- <record id="agriculture_group_user" model="res.groups">
+      <field name="name">User</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record> -->
+    <!-- Agriculture Manager Group -->
+    <!-- <record id="agriculture_group_manager" model="res.groups">
+      <field name="name">Manager</field>
+      <field name="implied_ids" eval="[(4, ref('agriculture_group_user'))]" />
+      <field name="users" eval="[(4, ref('base.user_root')),
+                  (4, ref('base.user_admin'))]" />
+    </record> -->
+      <!-- no edit mode if state = archived-->
+    <!-- <record model="ir.rule" id="no_edit_in_crop_archived_state">
+       <field name="name">No Edit Or Delete in archived state</field>
+       <field name="model_id" ref="model_agriculture_crop"/>
+       <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+       <field eval="0" name="perm_unlink"/>
+       <field eval="0" name="perm_write"/>
+       <field eval="1" name="perm_read"/>
+       <field eval="0" name="perm_create"/>
+       <field name="domain_force">[('stage_id','=','archived')]</field>
+    </record>
+  </data> -->
+  <!-- <data noupdate="1"> 
+    <record id="crop_user_rule" model="ir.rule"> 
+      <field name="name">Crop User Access</field> 
+      <field name="model_id" ref="model_agriculture_crop"/> 
+      <field name="groups" eval="[(4, ref('agriculture_group_user'))]"/> 
+    </record> 
+  </data> -->
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+  <!-- inherit view from res.partner -->
+  <record model="ir.ui.view" id="view_inherit_form_stock_picking">
+    <field name="name">view_inherit_form_stock_picking</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form" />
+    <field name="arch" type="xml">
+      <button name='action_toggle_is_locked' position="after">
+        <button name="button_carrier_call" type="object" string="Call Carrier" attrs="{'invisible': ['|', ('state', 'in', ('draft','cancel')), ('is_locked', '=', False)]}" states="ready" class="oe_highlight" />
+      </button>
+
+      <field name="backorder_id" position="after">
+        <field name="Shipping_method" readonly="0"/>
+        <field name="BlackcatState" readonly="1" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+        <field name="BlackcatObtId" widget="Many2one" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}">
+          <span t-field="BlackcatObtId.OBTNumber" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+        </field>
+
+        <!-- <div class="o_td_label">
+          <label for="PackageName" string="Package Name" />
+        </div>
+        <field name="PackageName" nolabel="1" /> -->
+
+        <div class="o_td_label">
+          <label for="ShipmentDate" string="Shipment Date" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+        </div>
+        <field name="ShipmentDate" nolabel="1" widget="date" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+
+        <div class="o_td_label">
+          <label for="HopeArriveDate" string="Hope Arrive Date" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+        </div>
+        <field name="HopeArriveDate" nolabel="1" widget="date" attrs="{'invisible': [('Shipping_method', '!=', 'Blackcat'),('Shipping_method', '!=', '黑貓宅急便')]}"/>
+      </field>
+
+    </field>
+  </record>
+</odoo>

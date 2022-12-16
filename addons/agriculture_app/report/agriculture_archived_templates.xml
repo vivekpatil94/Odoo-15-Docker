@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <template id="archived_billing_report">
+    <t t-foreach="docs" t-as="doc">
+      <t t-set="total_weight" t-value="0" />
+      <t t-set="total_income" t-value="0" />
+      <t t-set="add_items" t-value="doc.mapped('additional_items')" />
+
+      <t t-call="web.basic_layout">
+        <div class="page" style="font-size: 12pt;">
+          <!-- logo -->
+          <div class="">
+            <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="height: 35px;" alt="Logo" />
+          </div>
+
+          <!-- Title -->
+          <div class="mt-5 mb-5">
+            <h4>
+              <span t-field="res_company.name" />
+              <span>農民進出貨對帳單</span>
+            </h4>
+          </div>
+
+          <!-- Member information -->
+          <div class="">
+            <table class="table table-bordered table-sm" style="table-layout: fixed; border: 1px solid; border-color:black; border-collapse:collapse;">
+              <!-- <thead style="font-size: 12pt;"> -->
+              <tr class="">
+                <th colspan="12" style="background-color:rgb(218,220,224);">農友資訊</th>
+              </tr>
+              <!-- </thead> -->
+              <!-- <tbody class=""> -->
+              <tr class="">
+                <td class="text-center" colspan="1" style="white-space: nowrap;">姓名:</td>
+                <td class="" colspan="5">
+                  <span t-field="doc.member.SellerName" />
+                </td>
+                <td class="text-center" colspan="1" style="white-space: nowrap;">戶名:</td>
+                <td class="" colspan="5">
+                  <t t-if="'acc_holder_name' in doc.member.get_bank_info()">
+                    <span t-esc="doc.member.get_bank_info()['acc_holder_name']" />
+                  </t>
+                </td>
+              </tr>
+              <tr class="">
+                <td class="text-center" colspan="1" style="white-space: nowrap;">地址:</td>
+                <td class="" colspan="5">
+                  <span t-esc="doc.member.get_partner_attr('address')" />
+                </td>
+                <td class="text-center" colspan="1" style="white-space: nowrap;">帳號:</td>
+                <td class="" colspan="5">
+                  <t t-if="'acc_number' in doc.member.get_bank_info()">
+                    <span t-esc="doc.member.get_bank_info()['acc_number']" />
+                  </t>
+                </td>
+              </tr>
+              <tr class="">
+                <td class="text-center" colspan="1" style="white-space: nowrap;">電話:</td>
+                <td class="" colspan="5">
+                  <span t-esc="doc.member.get_partner_attr('phone')" />
+                  <br t-if="doc.member.get_partner_attr('phone')" />
+                  <span t-esc="doc.member.get_partner_attr('mobile')" />
+                </td>
+                <td class="text-center" colspan="1" style="white-space: nowrap;">銀行:</td>
+                <td class="" colspan="5">
+                  <t t-if="'bank_name' in doc.member.get_bank_info()">
+                    <span t-esc="doc.member.get_bank_info()['bank_name']" />
+                  </t>
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+
+          <hr />
+
+          <!-- 應付款 -->
+          <div class="">
+            <h5>應付款:</h5>
+          </div>
+          <div class="">
+            <table class="table table-bordered text-center table-sm" style="border: 1px solid; border-color:black; border-collapse:collapse;">
+              <!-- <thead style="font-size: 12pt;"> -->
+              <tr style="background-color:rgb(218,220,224);">
+                <th>編號</th>
+                <th>日期</th>
+                <th>貨品(摘要)</th>
+                <th>重量(公斤)</th>
+                <th>單價(元/公斤)</th>
+                <th>金額</th>
+                <th>備註</th>
+              </tr>
+              <!-- </thead> -->
+              <!-- <tbody> -->
+              <t t-set="idx" t-value="1" />
+              <t t-set="crops" t-value="doc.mapped('seq_numbers')" />
+              <tr t-foreach="crops" t-as="crop">
+                <t t-set="total_weight" t-value="total_weight+crop.CropWeight" />
+                <td style="white-space: nowrap; width: 55px;">
+                  <span t-esc="idx" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="doc.get_date(crop.LastEditTime)" />
+                </td>
+                <td class="align-middle">
+                  <!-- <span t-field="crop.CropVariety" /> -->
+                  <span t-esc="crop.get_crop_name()" />
+                  <t t-if="crop.isTGAP==1">
+                    <span>TGAP</span>
+                  </t>
+                  <t t-if="crop.FarmingMethod">
+                    <span t-field="crop.FarmingMethod" />
+                  </t>
+                  <span t-field="crop.FarmingAdaption"></span>
+                </td>
+                <td class="align-middle">
+                  <span t-field="crop.CropWeight" t-options='{"widget": "float", "precision": 2}' />
+                  <span>公斤</span>
+                </td>
+                <td class="align-middle">
+                  <span t-esc="crop.FinalPrice/60" t-options='{"widget": "float", "precision": 4}'/>
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(crop.TotalPrice))" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="(crop.CropWeight * 1.6667)" t-options='{"widget": "float", "precision": 2}' />
+                  <span>台斤</span>
+                  <span />
+                </td>
+                <t t-set="idx" t-value="idx+1" />
+              </tr>
+              <tr t-foreach="add_items.filtered(lambda x: x.item_kind == 'expenditure')" t-as="add_item">
+                <td style="white-space: nowrap; width: 55px;">
+                  <span t-esc="idx" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="doc.get_date(add_item.datetime)" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.item_name" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.amount" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(add_item.unit_price))" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(add_item.total_price))" />
+                </td>
+                <td class="align-middle">
+                  <span />
+                </td>
+                <t t-set="idx" t-value="idx+1" />
+              </tr>
+
+              <!-- 應付金額 -->
+              <tr>
+                <td colspan="5">應付金額</td>
+                <!-- 金額 -->
+                <td class="align-middle" colspan="2">
+                  <span t-esc="'{0:,.0f}'.format(floor(doc.TotalExpenditure))" />
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+
+          <!-- 應收款 -->
+          <div class="">
+            <h5>應收款:</h5>
+          </div>
+          <div class="">
+            <table class="table table-bordered text-center table-sm" style="border: 1px solid; border-color:black; border-collapse:collapse;">
+              <!-- <thead style="font-size: 12pt;"> -->
+              <tr style="background-color:rgb(218,220,224);">
+                <th>編號</th>
+                <th>日期</th>
+                <th>貨品(摘要)</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>金額</th>
+                <th>備註</th>
+              </tr>
+              <!-- </thead> -->
+              <!-- <tbody> -->
+              <t t-set="idx" t-value="1" />
+              <tr t-foreach="add_items.filtered(lambda x: x.item_kind == 'income')" t-as="add_item">
+                <t t-set="total_income" t-value="total_income+floor(add_item.total_price)" />
+                <td style="white-space: nowrap; width: 55px;">
+                  <span t-esc="idx" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="doc.get_date(add_item.datetime)" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.item_name" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.amount" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="add_item.unit_price" t-options='{"widget": "float", "precision": 4}' />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(add_item.total_price))" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.comment" />
+                </td>
+                <t t-set="idx" t-value="idx+1" />
+              </tr>
+
+              <!-- 應收金額 -->
+              <tr>
+                <td colspan="5">應收金額</td>
+                <!-- 金額 -->
+                <td class="align-middle" colspan="2">
+                  <span t-esc="'{0:,.0f}'.format(floor(total_income))" />
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+
+          <!-- 應付 應收 實付 -->
+          <br />
+          <div>
+            <table class="table table-bordered text-center table-sm">
+              <!-- <thead style="font-size: 12pt;"> -->
+              <tr>
+                <th>應付金額(一)</th>
+                <th>應收金額(二)</th>
+                <th>實付金額</th>
+              </tr>
+              <!-- </thead> -->
+              <!-- <tbody> -->
+              <tr>
+                <td>
+                  <span t-esc="'{0:,.0f}'.format(floor(doc.TotalExpenditure))" />
+                </td>
+                <td>
+                  <span t-esc="'{0:,.0f}'.format(floor(doc.TotalIncome))" />
+                </td>
+                <td>
+                  <span t-esc="'{0:,.0f}'.format(floor(doc.TotalActuallyPaid))" />
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+        </div>
+      </t>
+    </t>
+  </template>
+
+  <!-- receipt -->
+  <template id="archived_receipt_report">
+    <t t-foreach="docs" t-as="doc">
+      <t t-call="web.basic_layout">
+        <t t-set="now_date" t-value="datetime.datetime.now()" />
+
+        <div class="page" style="font-size: 12pt;">
+          <!-- Title -->
+          <div class="text-center mb-3">
+            <h5>
+              <span t-field="res_company.name" />
+            </h5>
+            <h5>農民出售農產物收據</h5>
+            <h5 t-esc="'中華民國 {:02d} 年 {:02d} 月 {:02d} 日'.format(now_date.year-1911,now_date.month,now_date.day)"></h5>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <table class="table table-bordered table-sm m-0">
+              <!-- <thead style="font-size: 12pt;"></thead> -->
+              <!-- <tbody> -->
+              <tr>
+                <td class="text-center">購貨商號名稱</td>
+                <td class="text-center">
+                  <span t-field="res_company.name" />
+                </td>
+                <td class="text-center">地址</td>
+                <td>
+                  <span>
+                    <span t-field="res_company.city" />
+                    <span t-field="res_company.street" />
+                  </span>
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+
+          <!-- Receipt -->
+          <div>
+            <table class="table table-bordered text-center table-sm m-0">
+              <!-- <thead style="font-size: 12pt;"> -->
+              <tr>
+                <th>品名</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>金額</th>
+                <th>備註</th>
+              </tr>
+              <!-- </thead> -->
+              <!-- <tbody> -->
+              <t t-set="crops" t-value="doc.mapped('seq_numbers')" />
+              <tr t-foreach="crops" t-as="crop">
+                <td>
+                  <!-- <span t-field="crop.CropVariety" /> -->
+                  <span t-esc="crop.get_crop_name()" />
+                  <t t-if="crop.isTGAP==1">
+                    <span>TGAP</span>
+                  </t>
+                  <t t-if="crop.FarmingMethod">
+                    <span t-field="crop.FarmingMethod" />
+                  </t>
+                  <span t-field="crop.FarmingAdaption"></span>
+                </td>
+                <td>
+                  <span t-field="crop.CropWeight" />
+                </td>
+                <td>
+                  <span t-esc="crop.FinalPrice/60" t-options='{"widget": "float", "precision": 4}'/>
+                </td>
+                <td>
+                  <span t-esc="'{0:,.0f}'.format(floor(crop.TotalPrice))" />
+                </td>
+                <td>
+                  <span />
+                </td>
+              </tr>
+              <t t-set="add_items" t-value="doc.mapped('additional_items')" />
+              <tr t-foreach="add_items.filtered(lambda x: x.item_kind == 'expenditure')" t-as="add_item">
+                <td class="align-middle">
+                  <span t-field="add_item.item_name" />
+                </td>
+                <td class="align-middle">
+                  <span t-field="add_item.amount" />
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(add_item.unit_price))" />
+                  <!-- <span t-field="add_item.unit_price" /> -->
+                </td>
+                <td class="align-middle">
+                  <span t-esc="'{0:,.0f}'.format(floor(crop.TotalPrice))" />
+                </td>
+                <td class="align-middle">
+                  <span />
+                </td>
+              </tr>
+              <!-- 小計 -->
+              <tr>
+                <td colspan="3">小計</td>
+                <!-- 金額 -->
+                <td colspan="2">
+                  <span t-esc="'{0:,.0f}'.format(floor(doc.TotalExpenditure))" />
+                  <!-- <span t-esc="floor(doc.TotalExpenditure)" /> -->
+                </td>
+              </tr>
+              <!-- 合計新台幣 -->
+              <tr>
+                <td colspan="1" class="text-center">
+                  <span>合計新台幣</span>
+                </td>
+                <td colspan="4" class="text-center">
+                  <span t-esc="doc.get_cn_num(doc.TotalExpenditure)" />
+                </td>
+              </tr>
+              <!-- Other -->
+              <tr>
+                <th rowspan="2" class="align-left">此欄稽徵機關填寫</th>
+                <th>收入金額</th>
+                <th>必要費用</th>
+                <th>所得淨額</th>
+                <th>稅籍號碼</th>
+              </tr>
+              <tr>
+                <td style="height: 25px;"></td>
+                <td style="height: 25px;"></td>
+                <td style="height: 25px;"></td>
+                <td style="height: 25px;"></td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+            <!-- extra framer's info -->
+            <br />
+
+            <table class="table table-bordered table-sm m-0">
+              <!-- <tbody> -->
+              <tr>
+                <td class="align-left">農民姓名：</td>
+                <td>
+                  <span t-field="doc.member.SellerName" />
+                </td>
+                <td rowspan="3">簽章：</td>
+              </tr>
+              <tr>
+                <td class="align-left">身分證字號：</td>
+                <td>
+                  <span t-esc="doc.member.get_partner_attr('vat')" />
+                </td>
+              </tr>
+              <tr>
+                <td class="align-left">住址：</td>
+                <td>
+                  <span t-esc="doc.member.get_partner_attr('address')" />
+                </td>
+              </tr>
+              <!-- </tbody> -->
+            </table>
+          </div>
+
+          <!-- End -->
+        </div>
+      </t>
+    </t>
+  </template>
+
+</odoo>

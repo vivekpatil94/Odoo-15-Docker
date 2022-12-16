@@ -1,0 +1,100 @@
+<odoo>
+  <data>
+
+    <record id="view_form_cropVariety" model="ir.ui.view">
+      <field name="name">CropVariety Form</field>
+      <field name="model">agriculture.cropvariety</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group name="group_left">
+              <field name="CropVariety_name" />
+            </group>
+            <group name="group_right">
+              <field name="CropVariety_bonus" />
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+
+    <record id="view_tree_cropVariety" model="ir.ui.view">
+      <field name="name">CropVariety Tree</field>
+      <field name="model">agriculture.cropvariety</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="CropVariety_name" />
+          <field name="CropVariety_bonus" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- list view definition for kanban -->
+    <record id="view_kanban_CropVariety" model="ir.ui.view">            
+    <field name="name">CropVariety Kanban</field>            
+    <field name="model">agriculture.cropvariety</field>            
+      <field name="arch" type="xml">
+      <kanban>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_global_click">
+              <!-- <div class="o_kanban_image">
+              </div> -->
+              <div class="oe_kanban_details">                                    
+                <strong class="o_kanban_record_title">                                    
+                  <field name="CropVariety_name"/>
+                </strong>
+                <div class="oe_kanban_record_subtitle">
+                  <field name="CropVariety_bonus"/>
+                </div>
+                <!-- <div t-if="record.CropVariety_bonus.value">                                        
+                  <t t-esc="record.CropVariety_bonus.value"/>                                
+                </div> -->
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+      </field>
+    </record>
+
+    <!-- explicit search view definition -->
+    <record id="view_search_cropVariety" model="ir.ui.view">
+      <field name="name">CropVariety Filters</field>
+      <field name="model">agriculture.cropvariety</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="CropVariety_name" />
+        </search>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <!-- <record id="agriculture_member_app.action_window" model="ir.actions.act_window">
+      <field name="name">Agriculture Members</field>
+      <field name="res_model">agriculture_app.member</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+    <!-- Top menu item -->
+
+    <!-- <menuitem name="Agriculture Member" id="agriculture_member_app.menu_root" /> -->
+
+    <!-- menu categories -->
+
+    <!-- <menuitem name="Member" id="agriculture_member_app.menu_member" parent="agriculture_member_app.menu_root" /> -->
+
+    <!-- actions -->
+
+    <!-- <menuitem name="List" id="agriculture_member_app.menu_member_list" parent="agriculture_member_app.menu_member" action="agriculture_member_app.action_window" /> -->
+
+  </data>
+</odoo>

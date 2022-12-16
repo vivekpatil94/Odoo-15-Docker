@@ -1,0 +1,48 @@
+version: '2'
+services:
+  odoo15:
+    image: odoo:15
+    container_name: odoo-15
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "20015:8072" 
+    networks:
+      - odoo_network
+    tty: true
+    command: --
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo15@2021
+    volumes:
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+      # - ./entrypoint.sh:/entrypoint.sh   
+      - ./addons:/mnt/extra-addons
+      - ./etc:/etc/odoo
+    restart: always
+  db:
+    container_name: postgres-odoo
+    image: postgres:14
+    user: root
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo15@2021      
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: always           
+    volumes:
+        - ./postgresql:/var/lib/postgresql/data/pgdata
+    ports:
+      - "6432:5432"
+    networks:
+      - odoo_network
+    
+networks:
+  default:
+    external:
+      name: bridge
+  odoo_network:

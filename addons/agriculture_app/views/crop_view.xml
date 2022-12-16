@@ -1,0 +1,212 @@
+<odoo>
+  <record id="view_form_crop" model="ir.ui.view">
+    <field name="name">Crop Form</field>
+    <field name="model">agriculture.crop</field>
+    <field name="arch" type="xml">
+
+    <form>
+      <header>
+          <field name="state" invisible="True" />
+          <!-- <button name="button_confirm"
+            type="object"
+            string="Confirm"
+            attrs="{'invisible': [('state', 'in', ['done', 'archived'])]}"
+            states="open"
+            class="oe_highlight" /> -->
+          <field name="stage_id"
+            widget="statusbar"
+            options="{'clickable': False, 'fold_field': 'fold'}" />
+      </header> 
+      <sheet>
+        <notebook>
+          <page name="name" string="磅單基本資料">
+            <group name="group_top">
+              <group name="group_left">
+                <h3>單號</h3>
+                <field name="SeqNumber"/>
+                <field name="LastCreationTime" readonly='1'/>
+                <field name="LastEditTime" readonly='1'/>
+                <!-- <field name="StartTime" /> -->
+                <!-- <field name="EndTime" /> -->
+              </group>
+              <group name="group_right">
+                <h3>農友基本資料</h3>
+                <field name="SellerName" />
+                <field name="SellerId" />
+                <field name="FarmerType" />
+                <field name="Region" />
+                <!-- <field name="AuxId" /> -->
+              </group>
+            </group>
+            <!-- 非契作農民顯示欄位 -->
+            <group name="group_bottom" attrs="{'invisible':['|',('FarmerType', '=', 'contract'),('FarmerType','=',False)]}">
+              <group name="group_left">
+                <field name="HarvestYear" />
+                <field name="HarvestPeriod" />
+                <field name="CarCropWeight" />
+                <field name="CarWeight" />
+                <field name="VolumeWeight" />
+                <field name="CropWeight" />
+                <field name="CropWeight_by_ratio" />
+                <field name="CropStatus" />
+                <field name="RawHumidity" />
+                <field name="RHafterDryer" />
+                <field name="WetToDryRatio" />
+                <field name="DryerId"/>
+                <field name="StorageId" />
+              </group>
+              <group name="group_right">
+                <field name="is_sp_type" />
+                <field name="CropVariety" attrs="{'invisible':[('is_sp_type', '=', True)]}"/>
+                <field name="CropType" attrs="{'invisible':[('is_sp_type', '!=', True)]}"/>
+                <h3>議價</h3>
+                <field name="nego_price" />
+                <h3>計價完成資料</h3>
+                <field name="state" />
+                <field name="FinalPrice" />
+                <field name="TotalPrice" />
+                <field name="ValidDocsRecived" />
+              </group>
+            </group>
+            <!-- 契作農民欄位 -->
+            <group name="group_bottom" attrs="{'invisible':[('FarmerType', '!=', 'contract')]}">
+              <group name="group_left">
+                <h3>稻米基本資料</h3>
+                <field name="is_sp_type" />
+                <field name="CropVariety" attrs="{'invisible':[('is_sp_type', '=', True)]}"/>
+                <field name="CropType" attrs="{'invisible':[('is_sp_type', '!=', True)]}"/>
+                <field name="FarmingMethod" attrs="{'invisible':[('is_sp_type', '=', True)]}"/>
+                <field name="FarmingAdaption" attrs="{'invisible':['|',('is_sp_type', '=', True),('FarmingMethod','=','organic')]}"/>
+                <field name="CarCropWeight" />
+                <field name="CarWeight" />
+                <field name="CropWeight" />
+                <field name="CropWeight_by_ratio" />
+                <field name="CropStatus" />
+                <field name="isTGAP" attrs="{'invisible':[('is_sp_type', '=', True)]}"/>
+              </group>
+              <group name="group_right">
+                <field name="HarvestYear" />
+                <field name="HarvestPeriod" />
+                <field name="PrimeYield" />
+                <field name="BrownIntactRatio" />
+                <field name="VolumeWeight" />
+                <field name="TasteRating" />
+                <field name="RawHumidity" />
+                <field name="RHafterDryer" />
+                <field name="WetToDryRatio" />
+                <field name="DryerId" />
+                <field name="StorageId" />
+              </group>
+              <group name="group_left">
+                <h3>議價</h3>
+                <field name="nego_price" />
+                <h3>計價完成資料</h3>
+                <field name="state" />
+                <field name="FinalPrice" />
+                <field name="TotalPrice" />
+                <field name="ValidDocsRecived" />
+              </group>
+            </group>
+          </page>
+
+          <page name="name" string="其他詳細資料" attrs="{'invisible':[('FarmerType', '!=', 'contract')]}">
+            <group name="group_top">
+            <group name="group_left">
+              <h3>稻米詳細評估資料</h3>
+              <field name="HullYield" />
+              <field name="BranYield" />
+              <field name="BBRiceYield" />
+              <field name="SBRiceYield" />
+              <field name="BrownHumidity" />
+              <field name="BrownYield" />
+              <field name="BrownCrackedRatio" />
+              <field name="BrownImmatureRatio" />
+              <field name="BrownPestsRatio" />
+              <field name="BrownColoredRatio" />
+              <field name="BrownDeadRatio" />
+              <field name="BrownMoisture" />
+              <field name="BrownAmylose" />
+            </group>
+            <group name="group_right">
+              <field name="RiceHumidity" />
+              <field name="Protein" />
+            </group>
+            </group>
+          </page>
+        </notebook>
+      </sheet>
+      <div class="oe_chatter">
+         <field name="message_follower_ids" widget="mail_followers"/>
+         <field name="message_ids" widget="mail_thread"/>
+      </div>
+    </form>
+    </field>
+  </record>
+
+  <!-- explicit list view definition -->
+  <record id="view_tree_crop" model="ir.ui.view">
+    <field name="name">Crop List</field>
+    <field name="model">agriculture.crop</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="SeqNumber" optional='show'/>
+        <field name="PriceState" widget="badge"/>
+        <field name="SellerName" optional='show'/>
+        <field name="CropVariety" optional='show'/>
+        <field name="CropType" optional='show'/>
+        <field name="FarmingMethod" optional='show'/> 
+        <field name="CropStatus" optional='hide'/>
+        <field name="CropWeight" optional='hide'/>
+        <field name="FinalPrice" optional='hide'/>
+        <field name="LastCreationTime" options="{'format': 'YYYY-MM-DD'}"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- explicit calender view definition -->
+
+  <record id="view_calendar_crop" model="ir.ui.view">
+    <field name="name">Crop Calendar</field>
+    <field name="model">agriculture.crop</field>
+    <field name="arch" type="xml">
+      <calendar string="Crop Calendar" 
+                date_start="LastCreationTime"                 
+                date_stop="LastCreationTime"                 
+                event_open_popup="true"                 
+                mode="month"                 
+                color="SellerName"                 
+                quick_add="False">
+        <field name="SeqNumber" />
+        <field name="PriceState" widget="badge"/>
+        <field name="SellerName" />
+        <field name="CropVariety" />
+        <field name="FarmingMethod" /> 
+        <field name="CropType" />
+        <!-- <field name="CropStatus" /> -->
+        <field name="FinalPrice" />
+        <field name="LastCreationTime" widget="remaining_days"/>
+      </calendar>
+    </field>
+  </record>
+
+
+  <!-- explicit search view definition -->
+  <record id="view_search_crop" model="ir.ui.view">
+    <field name="name">Crop Filters</field>
+    <field name="model">agriculture.crop</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="SellerName"/>
+        <field name="CropVariety"/>
+        <field name="LastCreationTime"/>
+        <field name="CarCropWeight"/>
+        <field name="CarWeight" />
+        <field name="HarvestPeriod" /> 
+        <filter name="filter_active" string="Done" domain="[('PriceState', '=', 'done')]"/>
+        <filter name="filter_active" string="Draft" domain="[('PriceState', '=', 'draft')]"/>
+        <filter name="filter_active" string="Archived" domain="[('PriceState', '=', 'archived')]"/>
+      </search>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,83 @@
+<odoo>
+
+    <!-- dolimi App Menu -->
+    <menuitem id="menu_agriculture" name="Agriculture" />
+
+    <!-- Action to open the Crop list -->
+    <record id="action_agriculture_crop" model="ir.actions.act_window">
+        <field name="name">Crops</field>
+        <field name="res_model">agriculture.crop</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    <!-- Menu item to open the Crop list -->
+    <menuitem id="menu_agriculture_crop" name="Crops" parent="menu_agriculture" action="action_agriculture_crop" sequence="2" />
+
+
+    <!-- Action to open the Archived list -->
+    <record id="action_agriculture_archived" model="ir.actions.act_window">
+        <field name="name">Archived</field>
+        <field name="res_model">agriculture.archived</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    <!-- Menu item to open the Archived -->
+    <menuitem id="menu_agriculture_archived" name="Archived" parent="menu_agriculture" action="action_agriculture_archived" sequence="6" />
+
+    <!-- Action to open the Additional Item list -->
+    <record id="action_agriculture_additional_item" model="ir.actions.act_window">
+        <field name="name">Archived Additional Item</field>
+        <field name="res_model">agriculture.archived_additional_item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Action to open the Mnmber list -->
+    <record id="action_agriculture_member" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">agriculture.member</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <!-- Menu item to open the Member list -->
+    <menuitem id="menu_agriculture_member" name="Members" parent="menu_agriculture" action="action_agriculture_member" sequence="8" />
+
+
+    <!-- Action to open the CropVariety list -->
+    <record id="action_agriculture_crop_variety" model="ir.actions.act_window">
+        <field name="name">CropVariety</field>
+        <field name="res_model">agriculture.cropvariety</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <!-- Menu item to open the CropVariety list -->
+    <menuitem id="menu_agriculture_configuration" name="Configuration" parent="menu_agriculture" sequence="100" />
+
+    <menuitem id="menu_agriculture_crop_variety" name="CropVariety" parent="menu_agriculture_configuration" action="action_agriculture_crop_variety" />
+    <menuitem id="menu_agriculture_settings" name="Price Estimated Settings" parent="menu_agriculture_configuration" action="res_config_settings_menu_action" />
+
+
+    <!-- Action to open the Storage all materials -->
+    <record id="action_agriculture_materials" model="ir.actions.act_window">
+        <field name="name">Materials</field>
+        <field name="res_model">agriculture.storagematerials</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Action to open the Storage  -->
+    <record id="action_agriculture_storage_area" model="ir.actions.act_window">
+        <field name="name">Storage Area</field>
+        <field name="res_model">agriculture.storage</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <!-- Menu item to open the Storage  -->
+    <menuitem id="menu_agriculture_storage" name="Storage" parent="menu_agriculture" sequence="10" />
+    <menuitem id="menu_agriculture_materials" name="Materials" parent="menu_agriculture_storage" action="action_agriculture_materials" />
+    <menuitem id="menu_agriculture_storage_area" name="Storage ID" parent="menu_agriculture_storage" action="action_agriculture_storage_area" />
+
+
+    <!-- Menu item for blackcat obt -->
+    <record id="action_agriculture_blackcat_obt" model="ir.actions.act_window">
+        <field name="name">Blackcat OBT</field>
+        <field name="res_model">agriculture.blackcat_obt</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <menuitem id="menu_agriculture_blackcat" name="Blackcat" parent="menu_agriculture" sequence="99" />
+    <menuitem id="menu_agriculture_blackcat_obt" name="Blackcat OBT" parent="menu_agriculture_blackcat" action="action_agriculture_blackcat_obt" />
+</odoo>

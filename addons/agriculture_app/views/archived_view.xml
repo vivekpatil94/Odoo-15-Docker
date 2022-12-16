@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+
+    <!-- form view definition -->
+    <record id="view_form_archived" model="ir.ui.view">
+      <field name="name">Archived Form</field>
+      <field name="model">agriculture.archived</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group name="group_top">
+              <field name="member" widget="many2one" />
+            </group>
+            <group name="group_center">
+              <field name="seq_numbers" widget="many2many" domain="['&amp;', '&amp;', ('SellerName', '=', member), '|', ('archived_id', '=', None), ('archived_id', '=', id), '|', ('PriceState', '=', 'done'), ('PriceState', '=', 'archived')]" />
+              <field name="additional_items" widget="many2many" domain="['|', ('archived_id', '=', None), ('archived_id', '=', id)]" />
+            </group>
+            <separator />
+            <group name="group_calculate">
+              <field name="TotalExpenditure" />
+              <field name="TotalIncome" />
+              <field name="TotalActuallyPaid" />
+            </group>
+            <separator />
+            <group name="group_bottom">
+              <group name="group_left">
+                <h3>農友基本資料</h3>
+                <field name="SellerId" />
+                <field name="SellerName" />
+                <field name="FarmerType" />
+                <field name="Region" />
+              </group>
+              <group name="group_right" attrs="{'invisible':[('FarmerType', '!=', 'contract')]}">
+                <field name="ContractArea" />
+                <field name="ChishangRArea" />
+                <field name="TGAPArea" />
+                <field name="OrganicVerifyDate" />
+                <field name="OrganiCertifiedArea" />
+                <field name="NonLeasedArea" />
+              </group>
+            </group>
+            <group name="group_footer">
+              <group name="left">
+                <field name="MemberBankAccount" string="Account Number" />
+                <field name="MemberBankName" string="Bank Name" />
+                <field name="MemberBankAccountHolderName" string="Account Name" />
+              </group>
+              <group name="right">
+                <field name="MaxPurchaseQTY" string="Reasonable QTY" attrs="{'readonly':[True]}" />
+                <field name="TotalQTY" string="Total QTY" attrs="{'readonly':[True]}" />
+                <field name="RemianingQTY" string="Remianing QTY" attrs="{'readonly':[True]}" />
+                <!-- overflow or not information -->
+                <label for="IsOverflowQTY" string="Not Overflow" attrs="{'invisible':[('IsOverflowQTY', '==', True)]}" style="color: blue;" />
+                <field name="IsOverflowQTY" onlable="1" attrs="{'readonly':[True], 'invisible':[True]}" />
+                <label for="IsOverflowQTY" string="Is Overflow" attrs="{'invisible':[('IsOverflowQTY', '==', False)]}" style="color: red;" />
+                <field name="IsOverflowQTY" onlable="1" attrs="{'readonly':[True], 'invisible':[True]}" />
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- list view definition -->
+    <record id="view_tree_archived" model="ir.ui.view">
+      <field name="name">Archived list</field>
+      <field name="model">agriculture.archived</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="member" />
+          <field name="seq_numbers" />
+          <field name="additional_items" />
+          <field name="LastCreationTime" options="{'format': 'YYYY-MM-DD'}" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- calendar view definition -->
+    <record id="view_calendar_archived" model="ir.ui.view">
+      <field name="name">Archived Calendar</field>
+      <field name="model">agriculture.archived</field>
+      <field name="arch" type="xml">
+        <calendar string="Archived Calendar" date_start="LastCreationTime" date_stop="LastCreationTime" event_open_popup="true" mode="month" color="SellerName" quick_add="False">
+          <field name="SellerId" />
+          <field name="SellerName" />
+          <field name="FarmerType" />
+          <field name="Region" />
+        </calendar>
+      </field>
+    </record>
+
+    <!-- search view definition -->
+    <record id="view_search_archived" model="ir.ui.view">
+      <field name="name">Archived Filters</field>
+      <field name="model">agriculture.archived</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="member" />
+          <field name="seq_numbers" />
+          <field name="additional_items" />
+        </search>
+      </field>
+    </record>
+
+  </data>
+</odoo>

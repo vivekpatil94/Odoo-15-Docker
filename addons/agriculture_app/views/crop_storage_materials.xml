@@ -1,0 +1,38 @@
+<odoo>
+
+     <!-- Tree -->
+    <record id="view_tree_storagematerials" model="ir.ui.view">
+      <field name="name">All materials in Storage Tree</field>            
+      <field name="model">agriculture.storagematerials</field> 
+      <field name="arch" type="xml">
+        <tree>
+          <field name="CropVarieties" />
+          <field name="CropWeights" />
+          <field name="StorageId" />                  
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form-->
+    <record id="view_form_storagematerials" model="ir.ui.view">
+      <field name="name">All materials in Storage Form</field>
+      <field name="model">agriculture.storagematerials</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+              <group name="group_left">              
+                <field name="CropVarieties" readonly="0"/>    
+                <field name="StorageId" />                                           
+              </group>
+              <group name="group_right"> 
+                <field name="CropWeights" />                           
+                <field name="Checkout" />                             
+              </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+</odoo>
+
+                 

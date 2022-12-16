@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="ECAN_dotmatrix_stock_picking" model="mail.template">
+      <field name="name">宅配通</field>
+      <field name="model_id" ref="stock.model_stock_picking"/>
+      <field name="subject">E-Can Stock Picking Dot Matrix</field>
+      <field name="body_html" type="html">
+        <table>
+          <pre>
+            <br/>
+            <t t-out="object.Shipping_method"/>
+            <br/>
+            <tr>
+              <p>收件人</p>
+              <pre>
+                <t t-out="object.partner_id.zip"></t>
+                <t t-out="object.partner_id.state_id"></t>
+                <t t-out="object.partner_id.city"></t>
+                <t t-out="object.partner_id.street"></t>
+                <t t-out="object.partner_id.street2"></t>
+                <t t-out="object.partner_id.name"/>
+                <t t-out="object.partner_id.phone"/>
+                <t t-out="object.partner_id.mobile"/>
+              </pre>
+            </tr>
+            <tr>
+              <p>寄件人</p>
+              <pre>
+                <t t-out="object.sender_zip"/>
+                <t t-out="object.sender_address"/>
+                <t t-out="object.sender_name"/>
+                <t t-out="object.sender_phone"/>
+                <t t-out="object.sender_mobile"/>
+                <t t-out="object.ecan_customerId"></t>
+              </pre>
+            </tr>
+          </pre>
+        </table>
+      </field>
+    </record>
+
+    <record id="KTJ_dotmatrix_stock_picking" model="mail.template">
+      <field name="name">大榮貨運</field>
+      <field name="model_id" ref="stock.model_stock_picking"/>
+      <field name="subject">KTJ Stock Picking Dot Matrix </field>
+      <field name="body_html" type="html">
+        <table>
+          <pre>
+            <br/>
+            <t t-out="object.Shipping_method"/>
+            <br/>
+            <tr colspan = "2">
+              <td colspan = "1">
+                <p>寄件人</p>
+                <pre>
+                  <t t-out="object.ktj_customerId"/>
+                  <t t-out="object.sender_phone"/>
+                  <t t-out="object.sender_mobile"/>
+                  <t t-out="object.sender_name"/>
+                  <t t-out="object.sender_zip"/>
+                  <t t-out="object.sender_address"/>
+                </pre>
+              </td>
+              <td colspan = "1">
+                <p>收件人</p>
+                <pre>
+                  <t t-out="object.partner_id.phone"/>
+                  <t t-out="object.partner_id.mobile"/>
+                  <t t-out="object.partner_id.name"/>
+                  <t t-out="object.partner_id.zip"/>
+                  <t t-out="object.partner_id.state_id"></t>
+                  <t t-out="object.partner_id.city"/>
+                  <t t-out="object.partner_id.street"/>
+                  <t t-out="object.partner_id.street2"/>
+                </pre>
+              </td>
+            </tr>
+          </pre>
+        </table>
+      </field>
+    </record>
+
+  </data>
+</odoo>

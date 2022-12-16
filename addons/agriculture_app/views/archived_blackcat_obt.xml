@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+
+    <!-- form view definition -->
+    <record id="view_form_blackcat_obt" model="ir.ui.view">
+      <field name="name">Blackcat OBT Form</field>
+      <field name="model">agriculture.blackcat_obt</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="SrvTranId" readonly="1" />
+              <field name="OBTNumber" readonly="1" />
+              <field name="FileNo" readonly="1" invisible="1" />
+              <field name="ShippingPdfFilename" invisible="1" />
+              <field name="ShippingPdf" filename="ShippingPdfFilename" readonly="1" />
+              <field name="StockPickingId" string="Stock Picking" readonly="1" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- list view definition -->
+    <record id="view_tree_blackcat_obt" model="ir.ui.view">
+      <field name="name">Blackcat OBT list</field>
+      <field name="model">agriculture.blackcat_obt</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="SrvTranId" string="SrvTranId" />
+          <field name="OBTNumber" string="OBTNumber" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- search view definition -->
+    <record id="view_search_blackcat_obt" model="ir.ui.view">
+      <field name="name">Blackcat OBT Filters</field>
+      <field name="model">agriculture.blackcat_obt</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="OBTNumber" string="OBTNumber" />
+        </search>
+      </field>
+    </record>
+
+  </data>
+</odoo>
