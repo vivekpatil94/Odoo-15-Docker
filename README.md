@@ -5,7 +5,7 @@
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) yourself, then run:
 
 ``` bash
-curl -s https://raw.githubusercontent.com/minhng92/odoo-15-docker-compose/master/run.sh | sudo bash -s odoo-one 10015 20015
+curl -s https://raw.githubusercontent.com/vivekpatil94/Odoo-15-Docker/master/run.sh | sudo bash -s odoo-one 10015 20015
 ```
 
 to set up first Odoo instance @ `localhost:10015` (default master password: `minhng.info`)
@@ -13,7 +13,7 @@ to set up first Odoo instance @ `localhost:10015` (default master password: `min
 and
 
 ``` bash
-curl -s https://raw.githubusercontent.com/minhng92/odoo-15-docker-compose/master/run.sh | sudo bash -s odoo-two 11015 21015
+curl -s https://raw.githubusercontent.com/vivekpatil94/Odoo-15-Docker/master/run.sh | sudo bash -s odoo-two 11015 21015
 ```
 
 to set up another Odoo instance @ `localhost:11015` (default master password: `minhng.info`)
@@ -53,7 +53,7 @@ docker-compose up -d
 **If you get the permission issue**, change the folder permission to make sure that the container is able to access the directory:
 
 ``` sh
-$ git clone https://github.com/minhng92/odoo-15-docker-compose
+$ git clone https://github.com/vivekpatil94/Odoo-15-Docker
 $ sudo chmod -R 777 addons
 $ sudo chmod -R 777 etc
 $ mkdir -p postgresql
